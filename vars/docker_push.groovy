@@ -3,9 +3,8 @@ def call(String ProjectName, String ImageTag, String DockerHubUser){
     credentialId: 'DockerHubCred', 
     passwordVariable: 'DockerHubPass',
     usernameVariable: 'DockerHubUser')]){
-      sh 'echo $DockerHubPass | docker login -u $DockerHubUser --password-stdin'
+      sh 'docker login -u $DockerHubUser -${DockerHubPass}'
       
   } 
-      sh 'docker tag notes-app:latest $DockerHubUser/notes-app:latest'
-      sh 'docker push $DockerHubUser/notes-app:latest'
+      sh 'docker push ${DockerHubUser}/${ProjectName}:${ImageTag}'
 }
